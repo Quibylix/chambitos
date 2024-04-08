@@ -5,7 +5,7 @@ import NextLink from "next/link";
 
 export default function Hero() {
   return (
-    <header className="max-w-4xl m-auto text-center p-4 pt-11 w-full">
+    <header className="max-w-4xl m-auto text-center p-4 md:pt-16 w-full">
       <Image
         className="max-h-96 w-auto m-auto"
         src={heroImage}
