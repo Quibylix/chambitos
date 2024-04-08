@@ -13,7 +13,7 @@ export default function Feature({
   category,
 }: FeatureProps) {
   return (
-    <Card className="bloc shadow-sm block border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
+    <Card className="bloc shadow-sm block border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
       <span className="bg-secondary-50 text-secondary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400 mb-2">
         {category}
       </span>
