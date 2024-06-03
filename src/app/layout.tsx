@@ -1,3 +1,4 @@
+import Footer from "@/features/ui/components/footer.component";
 import NextUIProvider from "@/features/ui/components/next-ui-provider.component";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
@@ -27,7 +28,10 @@ export default function RootLayout({
       <body
         className={`${roboto.className} min-h-screen bg-background text-foreground`}
       >
-        <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider>
+          <main>{children}</main>
+          <Footer />
+        </NextUIProvider>
       </body>
     </html>
   );
