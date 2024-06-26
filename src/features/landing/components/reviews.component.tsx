@@ -1,6 +1,6 @@
+import StarRating from "@/features/ui/components/star-rating.component";
 import { Avatar, Card, CardBody, CardHeader } from "@nextui-org/react";
 import Image from "next/image";
-import StarRating from "./star-rating.component";
 
 const REVIEWS = [
   {

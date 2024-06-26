@@ -1,4 +1,4 @@
-import Feature from "./feature.component";
+import Feature from "@/features/ui/components/feature.component";
 
 const FEATURES = [
   {

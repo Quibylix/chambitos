@@ -1,13 +1,5 @@
-import Features from "@/features/ui/components/features.component";
-import Hero from "@/features/ui/components/hero.component";
-import Reviews from "@/features/ui/components/reviews.component";
+import LandingPage from "@/features/landing/components/landing-page.component";
 
-export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <Features />
-      <Reviews />
-    </>
-  );
+export default async function HomePage() {
+  return <LandingPage />;
 }
