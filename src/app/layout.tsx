@@ -1,6 +1,8 @@
 import Footer from "@/features/ui/components/footer.component";
+import Navbar from "@/features/ui/components/navbar.component";
 import NextUIProvider from "@/features/ui/components/next-ui-provider.component";
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
@@ -18,17 +20,20 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
   return (
     <html lang="es">
       <body
         className={`${roboto.className} min-h-screen bg-background text-foreground`}
       >
         <NextUIProvider>
+          <Navbar session={session} />
           <main>{children}</main>
           <Footer />
         </NextUIProvider>
