@@ -44,11 +44,13 @@ export default function Navbar({ session }: NavbarProps) {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <img
-            src="/chambitos-logo.webp"
-            className="w-auto h-10"
-            alt="Chambitos Logo"
-          />
+          <Link href="/">
+            <img
+              src="/chambitos-logo.webp"
+              className="w-auto h-10"
+              alt="Chambitos Logo"
+            />
+          </Link>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
