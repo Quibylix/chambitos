@@ -6,7 +6,7 @@ async function getWorkerData() {
   return {
     title: "Fontanero",
     location: "San Francisco, CA",
-    experiencia: "3 años",
+    experience: "3 años",
     education: "Ingeniería Civil",
     skills: ["Plomería", "Trabajo en equipo", "Ingeniería Civil"],
     applications: [
@@ -73,7 +73,7 @@ export default async function WorkerDashboard() {
             </p>
             <p className="text-center text-gray-600 mb-2">
               <span className="font-bold">Experiencia:</span>{" "}
-              {workerData.experiencia}
+              {workerData.experience}
             </p>
             <p className="text-center text-gray-600 mb-2">
               <span className="font-bold">Educación:</span>{" "}
