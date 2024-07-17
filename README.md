@@ -64,6 +64,8 @@ cd chambitos
 pnpm install
 ```
 
+<!-- TODO: Write instructions to add environment variables and configure database -->
+
 3. Start the development server:
 
 ```sh
