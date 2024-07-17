@@ -96,7 +96,7 @@ export default function SignUpForm() {
       <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
         Ya tienes una cuenta?{" "}
         <a
-          href="/sign-in"
+          href="/auth/sign-in"
           className="font-medium text-primary-600 hover:underline dark:text-primary-500"
         >
           Inicia sesión aquí
