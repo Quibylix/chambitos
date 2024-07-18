@@ -47,15 +47,23 @@ export default async function signIn(
     password: validateFields.data.password,
   });
 
-  if (signInResponse.error) {
-    console.log(signInResponse.error.message);
+  if (!signInResponse.error) redirect("/");
 
+  console.log(signInResponse.error.message);
+
+  const INVALID_CREDENTIALS_ERROR_MESSAGE = "Invalid login credentials";
+
+  if (signInResponse.error.message === INVALID_CREDENTIALS_ERROR_MESSAGE) {
     return {
       errors: {
-        form: ["Ocurrió un error al iniciar sesión"],
+        form: ["Credenciales inválidas"],
       },
     };
   }
 
-  redirect("/");
+  return {
+    errors: {
+      form: ["Ocurrió un error al iniciar sesión"],
+    },
+  };
 }
