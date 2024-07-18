@@ -71,7 +71,12 @@ export default function Navbar({ session }: NavbarProps) {
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
-            <Button as={Link} color="primary" href="/auth" variant="solid">
+            <Button
+              as={Link}
+              color="primary"
+              href="/auth/sign-in"
+              variant="solid"
+            >
               Empezar
             </Button>
           )}
