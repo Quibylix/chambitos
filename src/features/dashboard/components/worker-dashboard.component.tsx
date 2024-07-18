@@ -1,5 +1,5 @@
+import getServerClient from "@/features/db/utils/supabase/server";
 import { Chip } from "@nextui-org/react";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 async function getWorkerData() {
@@ -33,10 +33,12 @@ async function getWorkerData() {
 }
 
 export default async function WorkerDashboard() {
-  const session = await getServerSession();
+  const db = getServerClient();
+  const {
+    data: { session },
+  } = await db.auth.getSession();
 
   if (!session) return null;
-  if (!session.user) return null;
 
   const workerData = await getWorkerData();
 
@@ -44,7 +46,7 @@ export default async function WorkerDashboard() {
     <div className="max-w-screen-lg m-auto p-4">
       <section>
         <h2 className="text-3xl font-bold text-center mt-4 mb-2">
-          {session.user.name}
+          {/* session.user.name */}
         </h2>
         <p className="text-center text-gray-500 text-sm mb-4">
           {workerData.title}
@@ -57,11 +59,11 @@ export default async function WorkerDashboard() {
         </Link>
         <div className="border-default-200 border-1 p-4 rounded-md mb-4 flex gap-6 flex-col md:flex-row items-center justify-center">
           <div>
-            <img
+            {/*<img
               className="w-32 h-32 rounded-full"
               src={session.user.image ?? "/user.png"}
               alt={session.user.name ?? "User"}
-            />
+            />*/}
           </div>
           <div>
             <h3 className="text-2xl font-bold text-center mb-4">
