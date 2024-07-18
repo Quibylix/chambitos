@@ -12,6 +12,15 @@ export default function getServerClient() {
         getAll() {
           return cookieStore.getAll();
         },
+        setAll(cookies) {
+          try {
+            cookies.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+            });
+          } catch (error) {
+            console.error("Failed to set cookies", error);
+          }
+        },
       },
     },
   );
