@@ -15,8 +15,8 @@ export default function Hero() {
         priority
       />
       <h1 className="text-4xl text-black-100 font-bold h-max md:text-6xl text-balance mt-3">
-        <span className="text-primary">Encuentre</span> y{" "}
-        <span className="text-secondary">conecte</span> con profesionales de{" "}
+        <span className="text-primary">Encuentra</span> y{" "}
+        <span className="text-secondary">conecta</span> con profesionales de{" "}
         <span className="text-warning">confianza</span> hoy.
       </h1>
       <p className="text-lg leading-tight mt-4 md:text-xl text-slate-600 text-pretty">
