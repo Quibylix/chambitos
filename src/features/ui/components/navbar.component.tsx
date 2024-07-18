@@ -10,7 +10,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
-import { Session } from "next-auth";
+import { type Session } from "@supabase/supabase-js";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -64,22 +64,22 @@ export default function Navbar({ session }: NavbarProps) {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          {session ? (
+          {/*{session ? (
             <img
               src={session.user?.image ?? ""}
               alt="User Profile Picture"
               className="w-10 h-10 rounded-full object-cover"
             />
-          ) : (
-            <Button
-              as={Link}
-              color="primary"
-              href="/auth/sign-in"
-              variant="solid"
-            >
-              Empezar
-            </Button>
-          )}
+          ) : (*/}
+          <Button
+            as={Link}
+            color="primary"
+            href="/auth/sign-in"
+            variant="solid"
+          >
+            Empezar
+          </Button>
+          {/*})*/}
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>

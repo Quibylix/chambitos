@@ -1,8 +1,8 @@
+import getServerClient from "@/features/db/utils/supabase/server";
 import Footer from "@/features/ui/components/footer.component";
 import Navbar from "@/features/ui/components/navbar.component";
 import NextUIProvider from "@/features/ui/components/next-ui-provider.component";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
@@ -25,7 +25,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
+  const {
+    data: { session },
+  } = await getServerClient().auth.getSession();
 
   return (
     <html lang="es">
