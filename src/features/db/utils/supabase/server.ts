@@ -18,6 +18,16 @@ export default function getServerClient() {
               cookieStore.set(name, value, options);
             });
           } catch (error) {
+            const NEXT_SERVER_COOKIE_ERROR =
+              "Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#cookiessetname-value-options";
+
+            if (
+              error instanceof Error &&
+              error.message === NEXT_SERVER_COOKIE_ERROR
+            ) {
+              return;
+            }
+
             console.error("Failed to set cookies", error);
           }
         },
