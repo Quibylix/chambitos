@@ -1,3 +1,7 @@
 export default function HomePage() {
-  return <h1>Chambitos</h1>;
+  return (
+    <div>
+      <h1>Chambitos</h1>
+    </div>
+  );
 }
