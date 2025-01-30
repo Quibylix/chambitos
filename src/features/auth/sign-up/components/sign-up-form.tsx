@@ -3,10 +3,14 @@
 import { useForm } from "@mantine/form";
 import { validateEmail } from "../../helpers/validate-email";
 import { validatePassword } from "../../helpers/validate-password";
-import { Button, Select, TextInput } from "@mantine/core";
+import { Button, Select, Text, TextInput } from "@mantine/core";
 import { validateRole } from "../../helpers/validate-role";
+import { signUp } from "../actions/sign-up";
+import { useRouter } from "next/navigation";
 
 export function SignUpForm() {
+  const router = useRouter();
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -27,12 +31,19 @@ export function SignUpForm() {
     },
   });
 
-  function submitHandler(value: typeof form.values) {
-    console.log(value);
+  async function submitHandler(values: typeof form.values) {
+    const result = await signUp(values);
+
+    if (result.success) {
+      return router.push("/confirm-email");
+    }
+
+    form.setErrors({ form: result.error });
   }
 
   return (
     <form onSubmit={form.onSubmit(submitHandler)}>
+      {form.errors.form && <Text c="red">{form.errors.form}</Text>}
       <TextInput
         label="Email"
         placeholder="Enter your email"
