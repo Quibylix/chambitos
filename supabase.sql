@@ -1,21 +1,33 @@
 create table public.profiles (
-  id uuid not null default gen_random_uuid (),
-  user_id uuid null,
-  role text not null,
+  id uuid not null references auth.users on delete cascade,
+  role text null default 'worker'::text,
+  status text null default 'unverified'::text, 
   created_at timestamp with time zone null default now(),
   updated_at timestamp with time zone null default now(),
-  first_name text not null,
-  last_name text not null,
-  title text null,
-  description text null,
+  first_name text null default '',
+  last_name text null default '',
+  title text null default '',
+  description text null default '',
   constraint profiles_pkey primary key (id),
-  constraint profiles_user_id_fkey foreign KEY (user_id) references auth.users (id) on delete CASCADE,
   constraint profiles_role_check check (
     (
       role = any (array['worker'::text, 'contractor'::text])
     )
+  ),
+  constraint profiles_status_check check (
+    (
+      status = any (
+        array[
+          'unverified'::text,
+          'incomplete'::text,
+          'active'::text
+        ]
+      )
+    )
   )
 ) TABLESPACE pg_default;
+
+alter table public.profiles enable row level security;
 
 create table public.jobs (
   id bigint generated always as identity not null,
@@ -53,6 +65,8 @@ create table public.jobs (
 
 create index IF not exists idx_jobs_contractor_id on public.jobs using btree (contractor_id) TABLESPACE pg_default;
 
+alter table public.jobs enable row level security;
+
 create table public.applications (
   id bigint generated always as identity not null,
   job_id bigint null,
@@ -78,19 +92,22 @@ create table public.applications (
 ) TABLESPACE pg_default;
 
 create index IF not exists idx_applications_job_id on public.applications using btree (job_id) TABLESPACE pg_default;
-
 create index IF not exists idx_applications_worker_id on public.applications using btree (worker_id) TABLESPACE pg_default;
+
+alter table public.applications enable row level security;
 
 create function public.handle_new_user()
 returns trigger
-set search_path = ''
+language plpgsql
+security definer set search_path = ''
 as $$
 begin
-  insert into public.profiles (id, role)
-  values (new.id, new.raw_user_meta_data->>'role');
+  insert into public.profiles (id)
+  values ( new.id );
   return new;
 end;
-$$ language plpgsql security definer;
+$$;
+
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
