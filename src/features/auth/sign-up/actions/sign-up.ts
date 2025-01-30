@@ -37,10 +37,5 @@ export async function signUp({ email, password }: SignUpData) {
     };
   }
 
-  return {
-    success: false,
-    error: "An error occurred while signing up. Please try again later.",
-  };
-
   return { success: true };
 }
