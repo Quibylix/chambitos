@@ -3,7 +3,7 @@
 import { useForm } from "@mantine/form";
 import { validateEmail } from "../../helpers/validate-email";
 import { validatePassword } from "../../helpers/validate-password";
-import { Button, Select, Text, TextInput } from "@mantine/core";
+import { Button, PasswordInput, Select, Text, TextInput } from "@mantine/core";
 import { validateRole } from "../../helpers/validate-role";
 import { signUp } from "../actions/sign-up";
 import { useRouter } from "next/navigation";
@@ -50,17 +50,15 @@ export function SignUpForm() {
         withAsterisk
         {...form.getInputProps("email")}
       />
-      <TextInput
+      <PasswordInput
         label="Password"
         placeholder="Enter your password"
-        type="password"
         withAsterisk
         {...form.getInputProps("password")}
       />
-      <TextInput
+      <PasswordInput
         label="Password Confirmation"
         placeholder="Enter your password again"
-        type="password"
         withAsterisk
         {...form.getInputProps("passwordConfirmation")}
       />
