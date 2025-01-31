@@ -1,7 +1,7 @@
 create table public.profiles (
   id uuid not null references auth.users on delete cascade,
   role text null default 'worker'::text,
-  status text null default 'unverified'::text, 
+  status text null default 'incomplete'::text, 
   created_at timestamp with time zone null default now(),
   updated_at timestamp with time zone null default now(),
   first_name text null default '',
@@ -18,7 +18,6 @@ create table public.profiles (
     (
       status = any (
         array[
-          'unverified'::text,
           'incomplete'::text,
           'active'::text
         ]
