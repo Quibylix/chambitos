@@ -28,6 +28,24 @@ create table public.profiles (
 
 alter table public.profiles enable row level security;
 
+create policy "Enable users to view their own data only"
+on "public"."profiles"
+for select
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) = id)
+);
+
+create policy "Enable update for users based on id"
+on "public"."profiles"
+for update
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) = id)
+with check (
+  (( SELECT auth.uid() AS uid) = id)
+);
+
 create table public.jobs (
   id bigint generated always as identity not null,
   contractor_id uuid null,
@@ -65,6 +83,13 @@ create table public.jobs (
 create index IF not exists idx_jobs_contractor_id on public.jobs using btree (contractor_id) TABLESPACE pg_default;
 
 alter table public.jobs enable row level security;
+
+create policy "Enable jobs read access for all users"
+on "public"."jobs"
+for select
+using (
+  true
+);
 
 create table public.applications (
   id bigint generated always as identity not null,
