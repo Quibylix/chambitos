@@ -1,3 +1,8 @@
+import {
+  roleDefaultRedirects,
+  routes,
+} from "@/features/auth/shared/constants/protected-routes";
+import { getUserRole } from "@/features/auth/utils/get-user-role";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -39,15 +44,15 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith("/sign-in") &&
-    !request.nextUrl.pathname.startsWith("/sign-up") &&
-    !request.nextUrl.pathname.startsWith("/confirm-email") &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
+  const userRole = await getUserRole(user?.id ?? null);
+  const pathname = request.nextUrl.pathname;
+
+  if (!(pathname in routes) || !routes[pathname].allowedRoles)
+    return supabaseResponse;
+
+  if (!routes[pathname].allowedRoles.includes(userRole)) {
     const url = request.nextUrl.clone();
-    url.pathname = "/sign-in";
+    url.pathname = roleDefaultRedirects[userRole];
     return NextResponse.redirect(url);
   }
 
