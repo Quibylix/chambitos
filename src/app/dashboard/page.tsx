@@ -1,4 +1,6 @@
 import { createClient } from "@/features/db/utils/server";
+import { Anchor } from "@mantine/core";
+import Link from "next/link";
 
 export default async function DashboardPage() {
   const db = await createClient();
@@ -27,6 +29,11 @@ export default async function DashboardPage() {
       <p>
         Role: <strong>{data.role}</strong>
       </p>
+      {data.role === "contractor" && (
+        <Anchor component={Link} href="/jobs/new">
+          Post a new job
+        </Anchor>
+      )}
     </div>
   );
 }
