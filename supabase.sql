@@ -48,7 +48,7 @@ with check (
 
 create table public.jobs (
   id bigint generated always as identity not null,
-  contractor_id uuid null,
+  contractor_id uuid not null,
   title text not null,
   description text not null,
   created_at timestamp with time zone null default now(),
@@ -93,8 +93,8 @@ using (
 
 create table public.applications (
   id bigint generated always as identity not null,
-  job_id bigint null,
-  worker_id uuid null,
+  job_id bigint not null,
+  worker_id uuid not null,
   status text not null,
   created_at timestamp with time zone null default now(),
   updated_at timestamp with time zone null default now(),
