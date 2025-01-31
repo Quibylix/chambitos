@@ -46,3 +46,13 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUBSTITUTE_SUPABASE_ANON_KEY>
 
 Replace `<SUBSTITUTE_SUPABASE_URL>` and `<SUBSTITUTE_SUPABASE_ANON_KEY>` with your Supabase project URL and anonymous key respectively.
 
+4. Go to the [Auth template](https://supabase.com/dashboard/project/_/auth/templates) page in your dashboard and configure the email template in your Supabase project.
+You can use the following template:
+```html
+<h2>Confirm your signup</h2>
+
+<p>Follow this link to confirm your user:</p>
+<p>
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup">Confirm your mail</a>
+</p>
+```
