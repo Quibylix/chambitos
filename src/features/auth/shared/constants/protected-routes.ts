@@ -13,6 +13,7 @@ export type RouteProtectionInfo = {
 };
 
 export const routes: Record<`/${string}`, RouteProtectionInfo> = {
+  "/": {},
   "/dashboard": {
     allowedRoles: ["worker", "contractor"],
   },
@@ -26,6 +27,10 @@ export const routes: Record<`/${string}`, RouteProtectionInfo> = {
     "/confirm": {},
   },
   "/jobs": {
+    "/:": {},
     "/new": { allowedRoles: ["contractor"] },
+    "/edit": {
+      "/:": { allowedRoles: ["contractor"] },
+    },
   },
 };
