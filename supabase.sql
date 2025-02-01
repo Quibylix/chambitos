@@ -91,6 +91,40 @@ using (
   true
 );
 
+create policy "Enable insert for users based on contractor_id, role and status"
+on "public"."jobs"
+for insert
+to authenticated
+with check (
+  ((( SELECT auth.uid() AS uid) IN ( SELECT profiles.id
+   FROM profiles
+  WHERE ((profiles.role = 'contractor'::text) AND (profiles.status = 'active'::text)))) AND (( SELECT auth.uid() AS uid) = contractor_id))
+);
+
+create policy "Enable update for users based on contractor_id, role and status"
+on "public"."jobs"
+for update
+to authenticated
+using (
+  ((( SELECT auth.uid() AS uid) IN ( SELECT profiles.id
+   FROM profiles
+  WHERE ((profiles.role = 'contractor'::text) AND (profiles.status = 'active'::text)))) AND (( SELECT auth.uid() AS uid) = contractor_id)))
+with check (
+  ((( SELECT auth.uid() AS uid) IN ( SELECT profiles.id
+   FROM profiles
+  WHERE ((profiles.role = 'contractor'::text) AND (profiles.status = 'active'::text)))) AND (( SELECT auth.uid() AS uid) = contractor_id))
+);
+
+create policy "Enable delete for users based on contractor_id, role and status"
+on "public"."jobs"
+for delete
+to authenticated
+using (
+  ((( SELECT auth.uid() AS uid) IN ( SELECT profiles.id
+   FROM profiles
+  WHERE ((profiles.role = 'contractor'::text) AND (profiles.status = 'active'::text)))) AND (( SELECT auth.uid() AS uid) = contractor_id))
+);
+
 create table public.applications (
   id bigint generated always as identity not null,
   job_id bigint not null,
