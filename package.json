@@ -12,6 +12,7 @@
     "@mantine/core": "^7.16.2",
     "@mantine/form": "^7.16.2",
     "@mantine/hooks": "^7.16.2",
+    "@mantine/notifications": "^7.16.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.48.1",
     "next": "15.1.6",
