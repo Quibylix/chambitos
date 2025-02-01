@@ -9,9 +9,10 @@ export const roleDefaultRedirects: Record<UserRole, string> = {
 
 export type RouteProtectionInfo = {
   allowedRoles?: UserRole[];
+  [key: `/${string}`]: RouteProtectionInfo;
 };
 
-export const routes: Record<string, RouteProtectionInfo> = {
+export const routes: Record<`/${string}`, RouteProtectionInfo> = {
   "/dashboard": {
     allowedRoles: ["worker", "contractor"],
   },
@@ -21,6 +22,10 @@ export const routes: Record<string, RouteProtectionInfo> = {
   "/sign-in": {},
   "/sign-up": {},
   "/confirm-email": {},
-  "/auth/confirm": {},
-  "/jobs/new": { allowedRoles: ["contractor"] },
+  "/auth": {
+    "/confirm": {},
+  },
+  "/jobs": {
+    "/new": { allowedRoles: ["contractor"] },
+  },
 };

@@ -2,6 +2,7 @@ import {
   roleDefaultRedirects,
   routes,
 } from "@/features/auth/shared/constants/protected-routes";
+import { getRouteProtectionInfo } from "@/features/auth/shared/utils/get-route-protection-info.util";
 import { getUserRole } from "@/features/auth/utils/get-user-role";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
@@ -47,14 +48,7 @@ export async function updateSession(request: NextRequest) {
   const userRole = await getUserRole(user?.id ?? null);
   const pathname = request.nextUrl.pathname;
 
-  if (!(pathname in routes) || !routes[pathname].allowedRoles)
-    return supabaseResponse;
-
-  if (!routes[pathname].allowedRoles.includes(userRole)) {
-    const url = request.nextUrl.clone();
-    url.pathname = roleDefaultRedirects[userRole];
-    return NextResponse.redirect(url);
-  }
+  const { allowedRoles } = getRouteProtectionInfo(pathname);
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:
@@ -69,5 +63,9 @@ export async function updateSession(request: NextRequest) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
-  return supabaseResponse;
+  if (!allowedRoles || allowedRoles.includes(userRole)) return supabaseResponse;
+
+  const url = request.nextUrl.clone();
+  url.pathname = roleDefaultRedirects[userRole];
+  return NextResponse.redirect(url);
 }
