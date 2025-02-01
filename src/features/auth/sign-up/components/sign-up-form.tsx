@@ -3,7 +3,14 @@
 import { useForm } from "@mantine/form";
 import { validateEmail } from "../../helpers/validate-email";
 import { validatePassword } from "../../helpers/validate-password";
-import { Button, PasswordInput, Select, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Paper,
+  PasswordInput,
+  Select,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { validateRole } from "../../helpers/validate-role";
 import { signUp } from "../actions/sign-up";
 import { useRouter } from "next/navigation";
@@ -42,8 +49,20 @@ export function SignUpForm() {
   }
 
   return (
-    <form onSubmit={form.onSubmit(submitHandler)}>
-      {form.errors.form && <Text c="red">{form.errors.form}</Text>}
+    <Paper
+      component="form"
+      withBorder
+      shadow="xs"
+      p={30}
+      mt={30}
+      radius="md"
+      onSubmit={form.onSubmit(submitHandler)}
+    >
+      {form.errors.form && (
+        <Text mb="md" c="red">
+          {form.errors.form}
+        </Text>
+      )}
       <TextInput
         label="Email"
         placeholder="Enter your email"
@@ -54,25 +73,30 @@ export function SignUpForm() {
         label="Password"
         placeholder="Enter your password"
         withAsterisk
+        mt="md"
         {...form.getInputProps("password")}
       />
       <PasswordInput
         label="Password Confirmation"
         placeholder="Enter your password again"
         withAsterisk
+        mt="md"
         {...form.getInputProps("passwordConfirmation")}
       />
       <Select
         label="Role"
         placeholder="Select your role"
         withAsterisk
+        mt="md"
         data={[
           { value: "worker", label: "Worker" },
           { value: "contractor", label: "Contractor" },
         ]}
         {...form.getInputProps("role")}
       />
-      <Button type="submit">Sign Up</Button>
-    </form>
+      <Button mt="xl" fullWidth type="submit">
+        Sign Up
+      </Button>
+    </Paper>
   );
 }
