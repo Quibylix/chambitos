@@ -5,6 +5,7 @@ import { toggleJobApplication } from "./toggle-job-application.action";
 import { useToggle } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next-nprogress-bar";
+import { startTransition, useOptimistic } from "react";
 
 export type ToggleJobApplicationButtonProps = {
   id: number;
@@ -15,6 +16,11 @@ export function ToggleJobApplicationButton({
   id,
   applied,
 }: ToggleJobApplicationButtonProps) {
+  const [optimistic, addOptimisticMessage] = useOptimistic(
+    applied,
+    (_state, newMessage) => newMessage as boolean,
+  );
+
   const [loading, toggleLoading] = useToggle();
   const router = useRouter();
 
@@ -22,6 +28,7 @@ export function ToggleJobApplicationButton({
     toggleLoading(true);
 
     const result = await toggleJobApplication(id);
+    startTransition(() => addOptimisticMessage(!optimistic));
 
     toggleLoading(false);
 
@@ -39,7 +46,7 @@ export function ToggleJobApplicationButton({
 
   return (
     <Button onClick={clickHandler} loading={loading}>
-      {applied ? "Cancel Application" : "Apply"}
+      {optimistic ? "Cancel Application" : "Apply"}
     </Button>
   );
 }
