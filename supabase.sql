@@ -152,6 +152,84 @@ create table public.applications (
 create index IF not exists idx_applications_job_id on public.applications using btree (job_id) TABLESPACE pg_default;
 create index IF not exists idx_applications_worker_id on public.applications using btree (worker_id) TABLESPACE pg_default;
 
+create policy "Enable applications read access for workers based on worker_id"
+on "public"."applications"
+for select
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'worker'::text) AND (( SELECT auth.uid() AS uid) = worker_id))
+);
+
+create policy "Enable applications read access for contractors based on job_id"
+on "public"."applications"
+for select
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'contractor'::text) AND (( SELECT auth.uid() AS uid) = ( SELECT contractor_id
+   FROM jobs
+  WHERE jobs.id = job_id)))
+);
+
+create policy "Enable insert for workers based on worker_id"
+on "public"."applications"
+for insert
+to authenticated
+with check (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'worker'::text) AND (( SELECT auth.uid() AS uid) = worker_id))
+);
+
+create policy "Enable update for contractors based on contractor_id and applied status"
+on "public"."applications"
+for update
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'contractor'::text) AND (( SELECT auth.uid() AS uid) = ( SELECT contractor_id
+   FROM jobs
+  WHERE jobs.id = job_id)) AND (status = 'applied'::text))
+) with check (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'contractor'::text) AND (( SELECT auth.uid() AS uid) = ( SELECT contractor_id
+   FROM jobs
+  WHERE jobs.id = job_id)) AND ((status = 'interview'::text) OR (status = 'rejected'::text)))
+);
+
+create policy "Enable update for contractors based on contractor_id and interview status"
+on "public"."applications"
+for update
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'contractor'::text)) AND ((( SELECT auth.uid() AS uid) = ( SELECT contractor_id
+   FROM jobs
+  WHERE jobs.id = job_id)) AND (status = 'interview'::text))
+) with check (
+  ( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'contractor'::text) AND (( SELECT auth.uid() AS uid) = ( SELECT contractor_id
+   FROM jobs
+  WHERE jobs.id = job_id)) AND ((status = 'hired'::text) OR (status = 'rejected'::text))
+);
+
+create policy "Enable delete for workers based on worker_id"
+on "public"."applications"
+for delete
+to authenticated
+using (
+  (( SELECT auth.uid() AS uid) in ( SELECT profiles.id
+   FROM profiles
+  WHERE profiles.role = 'worker'::text) AND (( SELECT auth.uid() AS uid) = worker_id))
+);
+
 alter table public.applications enable row level security;
 
 create function public.handle_new_user()
