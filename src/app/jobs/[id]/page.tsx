@@ -1,5 +1,6 @@
 import { getUserRole } from "@/features/auth/utils/get-user-role";
 import { createClient } from "@/features/db/utils/server";
+import { DeleteJobButton } from "@/features/jobs/delete-job-button/delete-job-button.component";
 import { Button } from "@mantine/core";
 import { z } from "zod";
 
@@ -59,7 +60,7 @@ export default async function JobPage({ params }: JobPageProps) {
         {userRole === "contractor" && job.contractor_id === user?.id && (
           <>
             <Button>Edit</Button>
-            <Button>Delete</Button>
+            <DeleteJobButton id={id} />
           </>
         )}
       </div>
