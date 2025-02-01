@@ -10,9 +10,9 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useRouter } from "next/navigation";
-import { validateSalary } from "../utils/validate-salary";
+import { validateSalary } from "@/features/jobs/shared/utils/validate-salary";
 import { z } from "zod";
-import { validatePaymentFrequency } from "../utils/validate-payment-frequency";
+import { validatePaymentFrequency } from "@/features/jobs/shared/utils/validate-payment-frequency";
 import { publishJob } from "../actions/publish-job";
 
 export function NewJobForm() {
