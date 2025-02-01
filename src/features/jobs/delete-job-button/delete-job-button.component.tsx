@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { deleteJob } from "./delete-job.action";
 import { Button, Modal } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useToggle } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 
 type DeleteJobButtonProps = {
@@ -12,11 +12,17 @@ type DeleteJobButtonProps = {
 
 export function DeleteJobButton({ id }: DeleteJobButtonProps) {
   const [opened, { open, close }] = useDisclosure(false);
+  const [loading, toggleLoading] = useToggle();
 
   const router = useRouter();
 
   async function clickHandler() {
+    toggleLoading();
+
     const { success, error } = await deleteJob(id);
+
+    toggleLoading();
+    close();
 
     if (success) {
       notifications.show({ message: "Job deleted" });
@@ -30,7 +36,9 @@ export function DeleteJobButton({ id }: DeleteJobButtonProps) {
     <>
       <Modal opened={opened} onClose={close} title="Delete job" centered>
         Are you sure you want to delete this job?
-        <Button onClick={clickHandler}>Delete</Button>
+        <Button loading={loading} onClick={clickHandler}>
+          Delete
+        </Button>
       </Modal>
       <Button onClick={open}>Delete Job</Button>
     </>
