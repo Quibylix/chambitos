@@ -4,7 +4,7 @@ import { Button } from "@mantine/core";
 import { toggleJobApplication } from "./toggle-job-application.action";
 import { useToggle } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 export type ToggleJobApplicationButtonProps = {
   id: number;

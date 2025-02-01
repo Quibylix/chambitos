@@ -10,6 +10,8 @@ import { Notifications } from "@mantine/notifications";
 import { BasicAppShell } from "@/features/ui/basic-app-shell/basic-app-shell.component";
 import { createClient } from "@/features/db/utils/server";
 import { getUserRole } from "@/features/auth/utils/get-user-role";
+import { ProgressBar } from "@/features/ui/progress-bar/progress-bar.component";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Chambitos",
@@ -41,6 +43,7 @@ export default async function RootLayout({
             {children}
           </BasicAppShell>
         </MantineProvider>
+        <ProgressBar />
       </body>
     </html>
   );
