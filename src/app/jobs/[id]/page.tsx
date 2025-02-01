@@ -1,6 +1,7 @@
 import { getUserRole } from "@/features/auth/utils/get-user-role";
 import { createClient } from "@/features/db/utils/server";
 import { DeleteJobButton } from "@/features/jobs/delete-job-button/delete-job-button.component";
+import { ToggleJobApplicationButton } from "@/features/jobs/toggle-job-aplication-button/toggle-job-aplication-button.component";
 import { Button } from "@mantine/core";
 import Link from "next/link";
 import { z } from "zod";
@@ -35,6 +36,13 @@ export default async function JobPage({ params }: JobPageProps) {
 
   const userRole = await getUserRole(user?.id ?? null);
 
+  const { data: application } = await db
+    .from("applications")
+    .select("id")
+    .eq("job_id", id)
+    .eq("worker_id", user?.id)
+    .single();
+
   return (
     <div>
       <h1>Jobs</h1>
@@ -57,7 +65,9 @@ export default async function JobPage({ params }: JobPageProps) {
         </tbody>
       </table>
       <div>
-        {userRole === "worker" && <Button>Apply</Button>}
+        {userRole === "worker" && (
+          <ToggleJobApplicationButton id={id} applied={application !== null} />
+        )}
         {userRole === "contractor" && job.contractor_id === user?.id && (
           <>
             <Button component={Link} href={`/jobs/edit/${id}`}>
