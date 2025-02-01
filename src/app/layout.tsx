@@ -7,6 +7,9 @@ import {
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { Notifications } from "@mantine/notifications";
+import { BasicAppShell } from "@/features/ui/basic-app-shell/basic-app-shell.component";
+import { createClient } from "@/features/db/utils/server";
+import { getUserRole } from "@/features/auth/utils/get-user-role";
 
 export const metadata: Metadata = {
   title: "Chambitos",
@@ -15,11 +18,17 @@ export const metadata: Metadata = {
   icons: "/chambitos-logo.webp",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const db = await createClient();
+  const {
+    data: { user },
+  } = await db.auth.getUser();
+  const userRole = await getUserRole(user?.id ?? null);
+
   return (
     <html lang="en" {...mantineHtmlProps}>
       <head>
@@ -28,7 +37,9 @@ export default function RootLayout({
       <body>
         <MantineProvider>
           <Notifications />
-          {children}
+          <BasicAppShell isLogged={userRole !== "anon"}>
+            {children}
+          </BasicAppShell>
         </MantineProvider>
       </body>
     </html>
