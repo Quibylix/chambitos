@@ -1,7 +1,7 @@
 "use client";
 
-import { AppShell, Burger, Group, Skeleton } from "@mantine/core";
-import { useDisclosure, useToggle } from "@mantine/hooks";
+import { AppShell, Burger, Group } from "@mantine/core";
+import { useToggle } from "@mantine/hooks";
 import Image from "next/image";
 import NavbarContent from "../navbar-content/navbar-content.component";
 import Link from "next/link";
@@ -39,7 +39,7 @@ export function BasicAppShell({ children, isLogged }: BasicAppShellProps) {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        <NavbarContent isLogged={isLogged} />
+        <NavbarContent onLinkClick={() => toggle()} isLogged={isLogged} />
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
