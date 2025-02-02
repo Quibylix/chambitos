@@ -55,11 +55,12 @@ export default async function Jobs() {
                 {job.description}
               </Text>
               <Text mt="xs" size="sm">
-                Salary: {job.salary} / {job.payment_frequency}
+                Salary: ${(job.salary as number).toFixed(2)} /{" "}
+                {job.payment_frequency}
               </Text>
               <Group mt="xs">
                 <Badge>
-                  ${job.salary} / {job.payment_frequency}
+                  ${(job.salary as number).toFixed(2)} / {job.payment_frequency}
                 </Badge>
                 <Badge bg="dimmed">Duration: {job.duration}</Badge>
               </Group>
