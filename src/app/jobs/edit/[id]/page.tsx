@@ -1,6 +1,7 @@
 import { getUserRole } from "@/features/auth/utils/get-user-role";
 import { createClient } from "@/features/db/utils/server";
 import { EditJobForm } from "@/features/jobs/edit-job-form/edit-job-form.component";
+import { Container, Text, Title } from "@mantine/core";
 import { z } from "zod";
 
 export type EditJobPageProps = {
@@ -39,12 +40,23 @@ export default async function EditJobPage({ params }: EditJobPageProps) {
   if (!job) return "Invalid job ID";
 
   return (
-    <EditJobForm
-      id={id}
-      initialValues={{
-        ...job,
-        paymentFrequency: job.payment_frequency,
-      }}
-    />
+    <Container size={680} my={40}>
+      <Title ta="center">
+        <Text span inherit c="blue">
+          Update
+        </Text>{" "}
+        the job
+      </Title>
+      <Text ta="center" mt={3}>
+        Update the form below in order to update the job
+      </Text>
+      <EditJobForm
+        id={id}
+        initialValues={{
+          ...job,
+          paymentFrequency: job.payment_frequency,
+        }}
+      />
+    </Container>
   );
 }

@@ -4,6 +4,7 @@ import { useForm } from "@mantine/form";
 import {
   Button,
   NumberInput,
+  Paper,
   Select,
   Text,
   Textarea,
@@ -77,8 +78,20 @@ export function EditJobForm({ id, initialValues }: EditJobFormProps) {
   }
 
   return (
-    <form onSubmit={form.onSubmit(submitHandler)}>
-      {form.errors.form && <Text c="red">{form.errors.form}</Text>}
+    <Paper
+      component="form"
+      withBorder
+      shadow="xs"
+      p={30}
+      mt={30}
+      radius="md"
+      onSubmit={form.onSubmit(submitHandler)}
+    >
+      {form.errors.form && (
+        <Text mb="md" c="red">
+          {form.errors.form}
+        </Text>
+      )}
       <TextInput
         label="Title"
         placeholder="Enter the title"
@@ -87,11 +100,12 @@ export function EditJobForm({ id, initialValues }: EditJobFormProps) {
         {...form.getInputProps("title")}
       />
       <Textarea
-        rows={5}
+        rows={7}
         label="Description"
         placeholder="Enter the description"
         withAsterisk
         key={form.key("description")}
+        mt="md"
         {...form.getInputProps("description")}
       />
       <NumberInput
@@ -109,6 +123,7 @@ export function EditJobForm({ id, initialValues }: EditJobFormProps) {
         key={form.key("salary")}
         stepHoldDelay={500}
         stepHoldInterval={100}
+        mt="md"
         {...form.getInputProps("salary")}
       />
       <Select
@@ -122,6 +137,7 @@ export function EditJobForm({ id, initialValues }: EditJobFormProps) {
           { value: "monthly", label: "Monthly" },
         ]}
         key={form.key("paymentFrequency")}
+        mt="md"
         {...form.getInputProps("paymentFrequency")}
       />
       <TextInput
@@ -129,11 +145,12 @@ export function EditJobForm({ id, initialValues }: EditJobFormProps) {
         placeholder="Enter the duration (e.g. 3 months)"
         withAsterisk
         key={form.key("duration")}
+        mt="md"
         {...form.getInputProps("duration")}
       />
-      <Button loading={loading} type="submit">
+      <Button loading={loading} mt="xl" fullWidth type="submit">
         Update Job
       </Button>
-    </form>
+    </Paper>
   );
 }
