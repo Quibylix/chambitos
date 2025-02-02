@@ -3,15 +3,7 @@
 import { useForm } from "@mantine/form";
 import { validateEmail } from "../../helpers/validate-email";
 import { validatePassword } from "../../helpers/validate-password";
-import {
-  Button,
-  Paper,
-  PasswordInput,
-  Select,
-  Text,
-  TextInput,
-} from "@mantine/core";
-import { validateRole } from "../../helpers/validate-role";
+import { Button, Paper, PasswordInput, Text, TextInput } from "@mantine/core";
 import { signUp } from "../actions/sign-up";
 import { useRouter } from "next-nprogress-bar";
 import { useToggle } from "@mantine/hooks";
@@ -26,7 +18,6 @@ export function SignUpForm() {
       email: "",
       password: "",
       passwordConfirmation: "",
-      role: "worker",
     },
     validate: {
       email: validateEmail,
@@ -36,7 +27,6 @@ export function SignUpForm() {
           return "Passwords do not match";
         }
       },
-      role: validateRole,
     },
   });
 
@@ -88,17 +78,6 @@ export function SignUpForm() {
         withAsterisk
         mt="md"
         {...form.getInputProps("passwordConfirmation")}
-      />
-      <Select
-        label="Role"
-        placeholder="Select your role"
-        withAsterisk
-        mt="md"
-        data={[
-          { value: "worker", label: "Worker" },
-          { value: "contractor", label: "Contractor" },
-        ]}
-        {...form.getInputProps("role")}
       />
       <Button loading={loading} mt="xl" fullWidth type="submit">
         Sign Up
