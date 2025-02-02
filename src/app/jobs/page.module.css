@@ -1,0 +1,7 @@
+.job {
+  color: inherit;
+}
+
+.job:hover {
+  background-color: var(--mantine-color-default-hover);
+}

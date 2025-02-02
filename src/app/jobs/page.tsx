@@ -1,4 +1,16 @@
 import { createClient } from "@/features/db/utils/server";
+import {
+  Badge,
+  Container,
+  Group,
+  List,
+  ListItem,
+  Paper,
+  Text,
+  Title,
+} from "@mantine/core";
+import NextLink from "next/link";
+import styles from "./page.module.css";
 
 export default async function Jobs() {
   const db = await createClient();
@@ -14,33 +26,47 @@ export default async function Jobs() {
   if (!data) return null;
 
   return (
-    <div>
-      <h1>Jobs</h1>
-      <ul>
+    <Container fluid>
+      <Title mb="xl">Jobs</Title>
+      <List spacing="md" listStyleType="none">
         {data.map((job) => (
-          <li key={job.id}>
-            <h2>{job.title}</h2>
-            <p>{job.description}</p>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Salary:</td>
-                  <td>{job.salary}</td>
-                </tr>
-                <tr>
-                  <td>Payment Frequency:</td>
-                  <td>{job.payment_frequency}</td>
-                </tr>
-                <tr>
-                  <td>Duration:</td>
-                  <td>{job.duration}</td>
-                </tr>
-              </tbody>
-            </table>
-            <a href={`/jobs/${job.id}`}>View Job</a>
-          </li>
+          <ListItem
+            styles={{
+              itemWrapper: { width: "100%" },
+              itemLabel: { width: "100%" },
+            }}
+            key={job.id}
+          >
+            <Paper
+              component={NextLink}
+              className={styles.job}
+              href={`/jobs/${job.id}`}
+              c="default"
+              withBorder
+              w="100%"
+              p="md"
+              radius="md"
+            >
+              <Badge bg="green">{job.status}</Badge>
+              <Title mt="xs" size="xl" order={2}>
+                {job.title}
+              </Title>
+              <Text mt={3} size="sm" lineClamp={2} c="dimmed">
+                {job.description}
+              </Text>
+              <Text mt="xs" size="sm">
+                Salary: {job.salary} / {job.payment_frequency}
+              </Text>
+              <Group mt="xs">
+                <Badge>
+                  ${job.salary} / {job.payment_frequency}
+                </Badge>
+                <Badge bg="dimmed">Duration: {job.duration}</Badge>
+              </Group>
+            </Paper>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Container>
   );
 }
