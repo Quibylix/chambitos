@@ -19,13 +19,11 @@ export type CompleteDataFormStep1Props<T extends CompleteDataFormStep1Fields> =
   {
     form: UseFormReturnType<T, (values: T) => T>;
     nextStep: () => void;
-    prevStep: () => void;
   };
 
 export function CompleteDataFormStep1<T extends CompleteDataFormStep1Fields>({
   form,
   nextStep,
-  prevStep,
 }: CompleteDataFormStep1Props<T>) {
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -77,7 +75,7 @@ export function CompleteDataFormStep1<T extends CompleteDataFormStep1Fields>({
           {...form.getInputProps("role")}
         />
         <Group mt="xl">
-          <Button disabled flex={1} type="button" onClick={prevStep}>
+          <Button disabled flex={1} type="button">
             Previous
           </Button>
           <Button flex={1} type="submit">

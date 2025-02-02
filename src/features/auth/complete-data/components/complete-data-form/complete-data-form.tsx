@@ -63,11 +63,7 @@ export function CompleteDataForm() {
     <Container size="md" mt={20}>
       <Stepper active={active}>
         <Stepper.Step label="Step 1" description="Enter your personal data">
-          <CompleteDataFormStep1
-            form={form}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
+          <CompleteDataFormStep1 form={form} nextStep={nextStep} />
         </Stepper.Step>
         <Stepper.Step label="Step 2" description="Enter your professional data">
           <CompleteDataFormStep2
