@@ -1,4 +1,4 @@
-import { Anchor } from "@mantine/core";
+import { NavLink } from "@mantine/core";
 import NextLink from "next/link";
 import { loggedLinks, noLoggedLinks } from "./navbar-links.constant";
 
@@ -16,16 +16,14 @@ export default function NavbarContent({
   return (
     <>
       {links.map((link) => (
-        <Anchor
+        <NavLink
           onClick={onLinkClick}
           component={NextLink}
           key={link.title}
-          mt={10}
           href={link.href}
-          c={"c" in link ? link.c : undefined}
-        >
-          {link.title}
-        </Anchor>
+          c={"c" in link ? link.c : "blue"}
+          label={link.title}
+        />
       ))}
     </>
   );
