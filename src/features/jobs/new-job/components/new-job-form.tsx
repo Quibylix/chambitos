@@ -4,6 +4,7 @@ import { useForm } from "@mantine/form";
 import {
   Button,
   NumberInput,
+  Paper,
   Select,
   Text,
   Textarea,
@@ -56,8 +57,20 @@ export function NewJobForm() {
   }
 
   return (
-    <form onSubmit={form.onSubmit(submitHandler)}>
-      {form.errors.form && <Text c="red">{form.errors.form}</Text>}
+    <Paper
+      component="form"
+      withBorder
+      shadow="xs"
+      p={30}
+      mt={30}
+      radius="md"
+      onSubmit={form.onSubmit(submitHandler)}
+    >
+      {form.errors.form && (
+        <Text mb="md" c="red">
+          {form.errors.form}
+        </Text>
+      )}
       <TextInput
         label="Title"
         placeholder="Enter the title"
@@ -66,11 +79,12 @@ export function NewJobForm() {
         {...form.getInputProps("title")}
       />
       <Textarea
-        rows={5}
+        rows={7}
         label="Description"
         placeholder="Enter the description"
         withAsterisk
         key={form.key("description")}
+        mt="md"
         {...form.getInputProps("description")}
       />
       <NumberInput
@@ -88,6 +102,7 @@ export function NewJobForm() {
         key={form.key("salary")}
         stepHoldDelay={500}
         stepHoldInterval={100}
+        mt="md"
         {...form.getInputProps("salary")}
       />
       <Select
@@ -101,6 +116,7 @@ export function NewJobForm() {
           { value: "monthly", label: "Monthly" },
         ]}
         key={form.key("paymentFrequency")}
+        mt="md"
         {...form.getInputProps("paymentFrequency")}
       />
       <TextInput
@@ -108,9 +124,12 @@ export function NewJobForm() {
         placeholder="Enter the duration (e.g. 3 months)"
         withAsterisk
         key={form.key("duration")}
+        mt="md"
         {...form.getInputProps("duration")}
       />
-      <Button type="submit">Publish Job</Button>
-    </form>
+      <Button mt="xl" fullWidth type="submit">
+        Publish Job
+      </Button>
+    </Paper>
   );
 }
