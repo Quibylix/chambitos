@@ -1,6 +1,6 @@
 "use client";
 
-import { Stepper } from "@mantine/core";
+import { Container, Stepper } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { validateRole } from "@/features/auth/helpers/validate-role";
@@ -60,21 +60,23 @@ export function CompleteDataForm() {
   }
 
   return (
-    <Stepper active={active}>
-      <Stepper.Step label="Step 1" description="Enter your personal data">
-        <CompleteDataFormStep1
-          form={form}
-          nextStep={nextStep}
-          prevStep={prevStep}
-        />
-      </Stepper.Step>
-      <Stepper.Step label="Step 2" description="Enter your professional data">
-        <CompleteDataFormStep2
-          form={form}
-          submitHandler={form.onSubmit(submitHandler)}
-          prevStep={prevStep}
-        />
-      </Stepper.Step>
-    </Stepper>
+    <Container size="md" mt={20}>
+      <Stepper active={active}>
+        <Stepper.Step label="Step 1" description="Enter your personal data">
+          <CompleteDataFormStep1
+            form={form}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
+        </Stepper.Step>
+        <Stepper.Step label="Step 2" description="Enter your professional data">
+          <CompleteDataFormStep2
+            form={form}
+            submitHandler={form.onSubmit(submitHandler)}
+            prevStep={prevStep}
+          />
+        </Stepper.Step>
+      </Stepper>
+    </Container>
   );
 }
