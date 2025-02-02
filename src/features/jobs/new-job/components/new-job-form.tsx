@@ -15,8 +15,10 @@ import { validateSalary } from "@/features/jobs/shared/utils/validate-salary";
 import { z } from "zod";
 import { validatePaymentFrequency } from "@/features/jobs/shared/utils/validate-payment-frequency";
 import { publishJob } from "../actions/publish-job";
+import { useToggle } from "@mantine/hooks";
 
 export function NewJobForm() {
+  const [loading, toggleLoading] = useToggle();
   const router = useRouter();
 
   const form = useForm({
@@ -47,7 +49,11 @@ export function NewJobForm() {
   });
 
   async function submitHandler(values: typeof form.values) {
+    toggleLoading(true);
+
     const result = await publishJob(values);
+
+    toggleLoading(false);
 
     if (result.success) {
       return router.push("/jobs");
@@ -127,7 +133,7 @@ export function NewJobForm() {
         mt="md"
         {...form.getInputProps("duration")}
       />
-      <Button mt="xl" fullWidth type="submit">
+      <Button loading={loading} mt="xl" fullWidth type="submit">
         Publish Job
       </Button>
     </Paper>
