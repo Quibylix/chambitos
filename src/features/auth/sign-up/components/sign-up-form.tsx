@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { validateRole } from "../../helpers/validate-role";
 import { signUp } from "../actions/sign-up";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useToggle } from "@mantine/hooks";
 
 export function SignUpForm() {

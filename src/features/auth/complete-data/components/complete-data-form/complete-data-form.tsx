@@ -7,7 +7,7 @@ import { validateRole } from "@/features/auth/helpers/validate-role";
 import { CompleteDataFormStep1 } from "./complete-data-form-step-1";
 import { CompleteDataFormStep2 } from "./complete-data-form-step-2";
 import { completeData } from "../../actions/complete-data";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 export function CompleteDataForm() {
   const [active, setActive] = useState(0);

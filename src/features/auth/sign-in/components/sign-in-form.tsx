@@ -4,7 +4,7 @@ import { useForm } from "@mantine/form";
 import { validateEmail } from "../../helpers/validate-email";
 import { validatePassword } from "../../helpers/validate-password";
 import { Paper, Button, PasswordInput, Text, TextInput } from "@mantine/core";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { signIn } from "../actions/sign-in";
 import { useToggle } from "@mantine/hooks";
 

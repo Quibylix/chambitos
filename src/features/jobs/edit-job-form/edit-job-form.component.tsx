@@ -9,7 +9,7 @@ import {
   Textarea,
   TextInput,
 } from "@mantine/core";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { validateSalary } from "@/features/jobs/shared/utils/validate-salary";
 import { z } from "zod";
 import { validatePaymentFrequency } from "@/features/jobs/shared/utils/validate-payment-frequency";

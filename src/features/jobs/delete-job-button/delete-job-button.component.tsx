@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { deleteJob } from "./delete-job.action";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure, useToggle } from "@mantine/hooks";
