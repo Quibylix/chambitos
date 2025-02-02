@@ -14,8 +14,10 @@ import {
 import { validateRole } from "../../helpers/validate-role";
 import { signUp } from "../actions/sign-up";
 import { useRouter } from "next/navigation";
+import { useToggle } from "@mantine/hooks";
 
 export function SignUpForm() {
+  const [loading, toggleLoading] = useToggle();
   const router = useRouter();
 
   const form = useForm({
@@ -39,7 +41,11 @@ export function SignUpForm() {
   });
 
   async function submitHandler(values: typeof form.values) {
+    toggleLoading(true);
+
     const result = await signUp(values);
+
+    toggleLoading(false);
 
     if (result.success) {
       return router.push("/confirm-email");
@@ -94,7 +100,7 @@ export function SignUpForm() {
         ]}
         {...form.getInputProps("role")}
       />
-      <Button mt="xl" fullWidth type="submit">
+      <Button loading={loading} mt="xl" fullWidth type="submit">
         Sign Up
       </Button>
     </Paper>

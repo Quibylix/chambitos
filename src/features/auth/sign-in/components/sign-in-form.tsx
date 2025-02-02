@@ -6,9 +6,11 @@ import { validatePassword } from "../../helpers/validate-password";
 import { Paper, Button, PasswordInput, Text, TextInput } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { signIn } from "../actions/sign-in";
+import { useToggle } from "@mantine/hooks";
 
 export function SignInForm() {
   const router = useRouter();
+  const [loading, toggleLoading] = useToggle();
 
   const form = useForm({
     mode: "uncontrolled",
@@ -23,7 +25,11 @@ export function SignInForm() {
   });
 
   async function submitHandler(value: typeof form.values) {
+    toggleLoading(true);
+
     const result = await signIn(value);
+
+    toggleLoading(false);
 
     if (result.success) {
       return router.push("/dashboard");
@@ -60,7 +66,7 @@ export function SignInForm() {
         mt="md"
         {...form.getInputProps("password")}
       />
-      <Button mt="xl" fullWidth type="submit">
+      <Button loading={loading} mt="xl" fullWidth type="submit">
         Sign In
       </Button>
     </Paper>
