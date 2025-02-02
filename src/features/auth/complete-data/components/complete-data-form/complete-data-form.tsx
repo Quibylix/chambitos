@@ -6,13 +6,9 @@ import { useState } from "react";
 import { validateRole } from "@/features/auth/helpers/validate-role";
 import { CompleteDataFormStep1 } from "./complete-data-form-step-1";
 import { CompleteDataFormStep2 } from "./complete-data-form-step-2";
-import { completeData } from "../../actions/complete-data";
-import { useRouter } from "next-nprogress-bar";
 
 export function CompleteDataForm() {
   const [active, setActive] = useState(0);
-
-  const router = useRouter();
 
   const form = useForm({
     initialValues: {
@@ -49,16 +45,6 @@ export function CompleteDataForm() {
     setActive((current) => Math.max(current - 1, 0));
   }
 
-  async function submitHandler(values: typeof form.values) {
-    const result = await completeData(values);
-
-    if (result.success) {
-      return router.push("/dashboard");
-    }
-
-    form.setErrors({ form: result.error });
-  }
-
   return (
     <Container size="md" mt={20}>
       <Stepper active={active}>
@@ -66,11 +52,7 @@ export function CompleteDataForm() {
           <CompleteDataFormStep1 form={form} nextStep={nextStep} />
         </Stepper.Step>
         <Stepper.Step label="Step 2" description="Enter your professional data">
-          <CompleteDataFormStep2
-            form={form}
-            submitHandler={form.onSubmit(submitHandler)}
-            prevStep={prevStep}
-          />
+          <CompleteDataFormStep2 form={form} prevStep={prevStep} />
         </Stepper.Step>
       </Stepper>
     </Container>
