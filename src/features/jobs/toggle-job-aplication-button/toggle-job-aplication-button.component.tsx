@@ -45,7 +45,7 @@ export function ToggleJobApplicationButton({
   }
 
   return (
-    <Button onClick={clickHandler} loading={loading}>
+    <Button fullWidth onClick={clickHandler} loading={loading}>
       {optimistic ? "Cancel Application" : "Apply"}
     </Button>
   );

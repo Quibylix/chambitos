@@ -36,11 +36,13 @@ export function DeleteJobButton({ id }: DeleteJobButtonProps) {
     <>
       <Modal opened={opened} onClose={close} title="Delete job" centered>
         Are you sure you want to delete this job?
-        <Button loading={loading} onClick={clickHandler}>
+        <Button bg="red" loading={loading} onClick={clickHandler}>
           Delete
         </Button>
       </Modal>
-      <Button onClick={open}>Delete Job</Button>
+      <Button flex={1} bg="red" onClick={open}>
+        Delete Job
+      </Button>
     </>
   );
 }
