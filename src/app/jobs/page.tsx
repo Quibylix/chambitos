@@ -1,6 +1,8 @@
 import { createClient } from "@/features/db/utils/server";
 import {
+  Anchor,
   Badge,
+  Breadcrumbs,
   Container,
   Group,
   List,
@@ -25,8 +27,17 @@ export default async function Jobs() {
 
   if (!data) return null;
 
+  const breadcrumbs = [{ title: "Jobs", href: "/jobs" }];
+
   return (
     <Container fluid>
+      <Breadcrumbs mb="lg">
+        {breadcrumbs.map((item) => (
+          <Anchor component={NextLink} href={item.href} key={item.title}>
+            {item.title}
+          </Anchor>
+        ))}
+      </Breadcrumbs>
       <Title mb="xl">Jobs</Title>
       <List spacing="md" listStyleType="none">
         {data.map((job) => (

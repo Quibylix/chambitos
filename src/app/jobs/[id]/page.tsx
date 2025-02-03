@@ -4,6 +4,7 @@ import { DeleteJobButton } from "@/features/jobs/delete-job-button/delete-job-bu
 import { ToggleJobApplicationButton } from "@/features/jobs/toggle-job-aplication-button/toggle-job-aplication-button.component";
 import {
   Anchor,
+  Breadcrumbs,
   Button,
   Container,
   Group,
@@ -54,9 +55,24 @@ export default async function JobPage({ params }: JobPageProps) {
     .eq("worker_id", user?.id)
     .single();
 
+  const breadcrumbs = [
+    { title: "Jobs", href: "/jobs" },
+    {
+      title: job.title.length > 20 ? `${job.title.slice(0, 20)}...` : job.title,
+      href: `/jobs/${id}`,
+    },
+  ];
+
   return (
     <>
       <Container fluid>
+        <Breadcrumbs mb="lg">
+          {breadcrumbs.map((item) => (
+            <Anchor component={NextLink} href={item.href} key={item.title}>
+              {item.title}
+            </Anchor>
+          ))}
+        </Breadcrumbs>
         <Title mb="xl">{job.title}</Title>
         <Text c="dimmed">{job.description}</Text>
         <Table mt="sm" verticalSpacing="xs">
