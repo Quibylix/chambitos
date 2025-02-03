@@ -6,8 +6,6 @@ Chambitos is a platform designed to connect freelancers and small business owner
 
 This project uses [Supabase](https://supabase.io/) as authentication and database provider. You will need to create an account and a project to get the necessary credentials. To configure your supabase project, follow the steps in the [Supabase Configuration](#supabase-configuration) section.
 
-```bash
-
 1. Clone the repository.
 2. Install the dependencies.
 ```bash
