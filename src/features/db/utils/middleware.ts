@@ -1,7 +1,4 @@
-import {
-  roleDefaultRedirects,
-  routes,
-} from "@/features/auth/shared/constants/protected-routes";
+import { roleDefaultRedirects } from "@/features/auth/shared/constants/protected-routes";
 import { getRouteProtectionInfo } from "@/features/auth/shared/utils/get-route-protection-info.util";
 import { getUserRole } from "@/features/auth/utils/get-user-role";
 import { createServerClient } from "@supabase/ssr";
