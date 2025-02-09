@@ -74,7 +74,11 @@ export default async function JobPage({ params }: JobPageProps) {
           ))}
         </Breadcrumbs>
         <Title mb="xl">{job.title}</Title>
-        <Text c="dimmed">{job.description}</Text>
+        {job.description.split("\n").map((line: string, index: number) => (
+          <Text mt="xs" key={index} c="dimmed">
+            {line}
+          </Text>
+        ))}
         <Table mt="sm" verticalSpacing="xs">
           <TableTbody>
             <TableTr>
