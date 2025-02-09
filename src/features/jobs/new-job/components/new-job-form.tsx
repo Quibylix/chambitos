@@ -16,6 +16,7 @@ import { z } from "zod";
 import { validatePaymentFrequency } from "@/features/jobs/shared/utils/validate-payment-frequency";
 import { publishJob } from "../actions/publish-job";
 import { useToggle } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 
 export function NewJobForm() {
   const [loading, toggleLoading] = useToggle();
@@ -56,9 +57,16 @@ export function NewJobForm() {
     toggleLoading(false);
 
     if (result.success) {
+      notifications.show({
+        message: "Job published",
+      });
       return router.push("/jobs");
     }
 
+    notifications.show({
+      message: result.error,
+      color: "red",
+    });
     form.setErrors({ form: result.error });
   }
 
