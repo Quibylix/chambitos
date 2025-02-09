@@ -8,5 +8,4 @@ export const noLoggedLinks = [
 export const loggedLinks = [
   { title: "Dashboard", href: "/dashboard" },
   { title: "Jobs", href: "/jobs" },
-  { title: "Sign Out", href: "/sign-out", c: "red" },
 ] as const;

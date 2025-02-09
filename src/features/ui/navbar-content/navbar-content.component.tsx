@@ -1,6 +1,7 @@
 import { NavLink } from "@mantine/core";
 import NextLink from "next/link";
 import { loggedLinks, noLoggedLinks } from "./navbar-links.constant";
+import { SignOutButton } from "@/features/auth/sign-out-button/sign-out-button.component";
 
 export type NavbarContentProps = {
   onLinkClick?: () => void;
@@ -21,10 +22,11 @@ export default function NavbarContent({
           component={NextLink}
           key={link.title}
           href={link.href}
-          c={"c" in link ? link.c : "blue"}
+          c="blue"
           label={link.title}
         />
       ))}
+      {isLogged && <SignOutButton />}
     </>
   );
 }
