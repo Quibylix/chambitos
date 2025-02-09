@@ -1,5 +1,5 @@
 import { createClient } from "@/features/db/utils/server";
-import { Anchor } from "@mantine/core";
+import { Button, Container, Text, Title } from "@mantine/core";
 import Link from "next/link";
 
 export default async function DashboardPage() {
@@ -20,20 +20,27 @@ export default async function DashboardPage() {
   if (!data) return null;
 
   return (
-    <div>
-      <h1>
+    <Container ta="center" fluid>
+      <Title>
         {data.first_name} {data.last_name}
-      </h1>
-      <p>{data.title}</p>
-      <p>{data.description}</p>
-      <p>
-        Role: <strong>{data.role}</strong>
-      </p>
+      </Title>
+      <Text mt="xs" fw="bold" c="dimmed">
+        {data.title}
+      </Text>
+      <Text mt="md" c="dimmed">
+        {data.description}
+      </Text>
+      <Text mt="md">
+        Role:{" "}
+        <Text fw="bold" span c="blue">
+          {data.role}
+        </Text>
+      </Text>
       {data.role === "contractor" && (
-        <Anchor component={Link} href="/jobs/new">
+        <Button mt="xl" component={Link} href="/jobs/new">
           Post a new job
-        </Anchor>
+        </Button>
       )}
-    </div>
+    </Container>
   );
 }
