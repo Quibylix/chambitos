@@ -73,6 +73,7 @@ export function EditJobForm({ id, initialValues }: EditJobFormProps) {
 
     notifications.show({
       message: result.error,
+      color: "red",
     });
     form.setErrors({ form: result.error });
   }

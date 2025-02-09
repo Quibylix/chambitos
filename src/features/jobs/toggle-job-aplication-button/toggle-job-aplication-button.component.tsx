@@ -41,6 +41,7 @@ export function ToggleJobApplicationButton({
 
     notifications.show({
       message: result.error,
+      color: "red",
     });
   }
 

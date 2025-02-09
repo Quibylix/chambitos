@@ -29,7 +29,7 @@ export function DeleteJobButton({ id }: DeleteJobButtonProps) {
       return router.push("/jobs");
     }
 
-    notifications.show({ message: error });
+    notifications.show({ message: error, color: "red" });
   }
 
   return (
