@@ -1,0 +1,35 @@
+.image {
+  margin: 0 auto;
+}
+
+.content {
+  text-align: center;
+}
+
+.content ul {
+  display: none;
+}
+
+.buttons {
+  justify-content: center;
+}
+
+@media (min-width: 75em) {
+  .container {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 3.5rem;
+  }
+
+  .content {
+    text-align: left;
+  }
+
+  .content ul {
+    display: block;
+  }
+
+  .buttons {
+    justify-content: flex-start;
+  }
+}
