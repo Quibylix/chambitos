@@ -28,7 +28,7 @@ export function BasicAppShell({ children, isLogged }: BasicAppShellProps) {
             hiddenFrom="sm"
             size="sm"
           />
-          <Link href="/">
+          <Link href={isLogged ? "/dashboard" : "/"}>
             <Image
               src="/chambitos-logo.webp"
               alt="Chambitos"
