@@ -214,7 +214,7 @@ export default function HomePage() {
                 className={styles.avatar}
               />
               <Text fz="lg" fw={500} className={styles.cardTitle} mt="md">
-                "{title}"
+                &ldquo;{title}&rdquo;
               </Text>
               <Text fz="sm" c="dimmed" mt="sm">
                 {description}
